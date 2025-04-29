@@ -5,7 +5,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum Role {
     STUDENT,
-    HR,
+    USER,
+    MANAGER,
     ADMIN;
 
     public String getAuthority() {

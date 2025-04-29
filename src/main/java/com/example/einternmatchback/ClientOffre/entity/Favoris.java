@@ -1,5 +1,6 @@
 package com.example.einternmatchback.ClientOffre.entity;
 
+import com.example.einternmatchback.AjoutOffers.model.Offer;
 import com.example.einternmatchback.Authentification.user.User;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -19,5 +20,5 @@ public class Favoris {
 
     @ManyToOne
     @JoinColumn(name = "offer_id")
-    private CompanyOffer offer;
+    private Offer offer;
 }

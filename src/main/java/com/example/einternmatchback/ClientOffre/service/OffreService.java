@@ -1,6 +1,6 @@
 package com.example.einternmatchback.ClientOffre.service;
 
-import com.example.einternmatchback.ClientOffre.entity.CompanyOffer;
+import com.example.einternmatchback.AjoutOffers.model.Offer;
 import com.example.einternmatchback.ClientOffre.entity.Favoris;
 import com.example.einternmatchback.ClientOffre.repository.CompanyOfferRepository;
 import com.example.einternmatchback.ClientOffre.repository.FavorisRepository;
@@ -19,19 +19,24 @@ public class OffreService {
     private final FavorisRepository favorisRepository;
     private final UserRepository userRepository;
 
-    public List<CompanyOffer> getAllOffres() {
+    public List<Offer> getAllOffres() {
         return offerRepository.findAll();
     }
 
-    public List<CompanyOffer> getOffresByLocation(String location) {
+    public List<Offer> getOffresByLocation(String location) {
         return offerRepository.findByLocationContainingIgnoreCase(location);
     }
+
+    public List<Offer> getOffresByStageType(String stageType) {
+        return offerRepository.findByStageTypeContainingIgnoreCase(stageType);
+    }
+
 
     public void addFavoris(String userEmail, Integer offerId) {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
-        CompanyOffer offer = offerRepository.findById(offerId)
+        Offer offer = offerRepository.findById(offerId)
                 .orElseThrow(() -> new RuntimeException("Offre non trouvée"));
 
         if (!favorisRepository.existsByUserAndOffer(user, offer)) {
@@ -42,7 +47,7 @@ public class OffreService {
         }
     }
 
-    public List<CompanyOffer> getUserFavorites(String userEmail) {
+    public List<Offer> getUserFavorites(String userEmail) {
         User user = userRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new RuntimeException("Utilisateur non trouvé"));
 
